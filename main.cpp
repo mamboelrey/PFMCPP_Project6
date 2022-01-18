@@ -98,7 +98,7 @@ struct StartDistance
 
 struct KickDistance
 {
-    static int kickSoccerBall(StartDistance* that, float* updatedValue)        //10
+    static float kickSoccerBall(StartDistance* that, float* updatedValue)        //10
     {
         if(updatedValue != nullptr)
         {
