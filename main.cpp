@@ -56,11 +56,15 @@ Purpose:  This project will show you the difference between member functions and
 #include <string>
 struct SoccerBall
 {
-    SoccerBall(float v, const char* brand);   //1
+    SoccerBall(float v, const char* brand): value(0), name("")
+    {
+        value = v;
+        name = brand;
+    }   //1
     //2 
-    int value = 0;
+    float value;
     //3
-    std::string name = "";
+    std::string name;
 };
 
 struct SoccerBallSize                               //4
@@ -124,13 +128,14 @@ struct KickDistance
  Wait for my code review.
  */
 
+
 int main()
 {
-    SoccerBall walmartBall( 4.4f, "Wilson");                                             //6
-    SoccerBall targetBall(5.5f, "Nike");                                             //6
+    SoccerBall ballOne( 4.4f, "Wilson");                                             //6
+    SoccerBall ballTwo(5.5f, "Nike");                                             //6
     
     SoccerBallSize f;                                            //7
-    auto* smaller = f.compare(&walmartBall, &targetBall);                              //8
+    auto* smaller = f.compare(&ballOne, &ballTwo);                              //8
     if(smaller == nullptr)
         return -1;
     std::cout << "the smaller one is << " << smaller->name << std::endl; //9
