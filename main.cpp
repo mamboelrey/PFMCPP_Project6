@@ -71,8 +71,8 @@ struct SoccerBallSize                               //4
 {
     SoccerBall* compare(SoccerBall* a, SoccerBall* b) //5
     {
-        if( a->value < b->value ) return a;
-        if( a->value > b->value ) return b;
+        if( a->value < b->value && a != nullptr && b != nullptr ) return a;
+        if( a->value > b->value && a != nullptr && b != nullptr ) return b;
         return nullptr;
     }
 };
@@ -83,7 +83,8 @@ struct StartDistance
     float decrementBallDistance(float* updatedValue)      //12
     {
         std::cout << "StartDistance's danielBall value: " << danielBall << std::endl;
-        danielBall = *updatedValue;
+        if(updatedValue != nullptr)
+            danielBall = *updatedValue;
         std::cout << "StartDistance's danielBall updated value: " << danielBall << std::endl;
         while(std::abs(anthonyBall - danielBall) > 0.001f)
         {
@@ -99,8 +100,12 @@ struct KickDistance
 {
     static int kickSoccerBall(StartDistance* that, float* updatedValue)        //10
     {
-        std::cout << "StartDistance's danielBall value: " << that->danielBall << std::endl;
-        that->danielBall = *updatedValue;
+        if(updatedValue != nullptr)
+        {
+            std::cout << "StartDistance's danielBall value: " << that->danielBall << std::endl;
+        }
+        if(that != nullptr)
+            that->danielBall = *updatedValue;
         std::cout << "StartDistance's danielBall updated value: " << that->danielBall << std::endl;
         while( std::abs(that->anthonyBall - that->danielBall) > 0.001f )
         {
@@ -136,9 +141,8 @@ int main()
     
     SoccerBallSize f;                                            //7
     auto* smaller = f.compare(&ballOne, &ballTwo);                              //8
-    if(smaller == nullptr)
-        return -1;
-    std::cout << "the smaller one is << " << smaller->name << std::endl; //9
+    if(smaller != nullptr)
+        std::cout << "the smaller one is << " << smaller->name << std::endl; //9
     
     StartDistance ballStart1;
     float updatedValue = 5.0f;
