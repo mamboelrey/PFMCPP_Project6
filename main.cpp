@@ -98,7 +98,7 @@ struct StartDistance
             std::cout << "StartDistance's danielBall updated value: " << anthonyBall << std::endl;
             return anthonyBall * danielBall;
         }
-        std::cout << "Null pointer error" << std::endl;
+        std::cout << "DecrementBallDistance null pointer error" << std::endl;
         return 0.0f;
     }
 };
@@ -122,7 +122,7 @@ struct KickDistance
             std::cout << "StartDistance's anthonyBall updated value: " << that->anthonyBall << std::endl;
             return that->anthonyBall * that->danielBall;
         }
-        std::cout << "Nullpointer error" << std::endl;
+        std::cout << "Kick Soccerball null pointer error" << std::endl;
         return 0.0f;
     }
 };
@@ -149,19 +149,23 @@ int main()
     
     SoccerBallSize f;                                            //7
     auto* smaller = f.compare(&ballOne, &ballTwo);                              //8
+    smaller = f.compare(nullptr, nullptr);
     if(smaller != nullptr)
+    {
         std::cout << "the smaller one is << " << smaller->name << std::endl; //9
 
-    smaller = f.compare(nullptr, nullptr);
+        KickDistance::kickSoccerBall(nullptr, nullptr);
+        
+        StartDistance ballStart1;
+        float updatedValue = 5.0f;
+        std::cout << "kickSoccerBall ballStart's multiplied values: " << KickDistance::kickSoccerBall(&ballStart1, &updatedValue) << std::endl;                  //11
+        
+        StartDistance ballStart2;
+        std::cout << "kickSoccerBall continuousDistance's multiplied values: " << ballStart2.decrementBallDistance(&updatedValue) << std::endl;
 
-    KickDistance::kickSoccerBall(nullptr, nullptr);
-    
-    StartDistance ballStart1;
-    float updatedValue = 5.0f;
-    std::cout << "kickSoccerBall ballStart's multiplied values: " << KickDistance::kickSoccerBall(&ballStart1, &updatedValue) << std::endl;                  //11
-    
-    StartDistance ballStart2;
-    std::cout << "kickSoccerBall continuousDistance's multiplied values: " << ballStart2.decrementBallDistance(&updatedValue) << std::endl;
+        return 0;
+    }
+    std::cout << "Smaller null pointer error" << std::endl;
 
-    return 0;
+    return -1;
 }
