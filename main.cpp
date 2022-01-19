@@ -56,11 +56,8 @@ Purpose:  This project will show you the difference between member functions and
 #include <string>
 struct SoccerBall
 {
-    SoccerBall(float v, const char* brand): value(0), name("")
-    {
-        value = v;
-        name = brand;
-    }   //1
+    SoccerBall(float v, const char* brand): value(v), name(brand) {}
+    //1
     //2 
     float value;
     //3
@@ -149,23 +146,19 @@ int main()
     
     SoccerBallSize f;                                            //7
     auto* smaller = f.compare(&ballOne, &ballTwo);                              //8
-    smaller = f.compare(nullptr, nullptr);
+    //smaller = f.compare(nullptr, nullptr);
     if(smaller != nullptr)
     {
         std::cout << "the smaller one is << " << smaller->name << std::endl; //9
-
-        KickDistance::kickSoccerBall(nullptr, nullptr);
-        
-        StartDistance ballStart1;
-        float updatedValue = 5.0f;
-        std::cout << "kickSoccerBall ballStart's multiplied values: " << KickDistance::kickSoccerBall(&ballStart1, &updatedValue) << std::endl;                  //11
-        
-        StartDistance ballStart2;
-        std::cout << "kickSoccerBall continuousDistance's multiplied values: " << ballStart2.decrementBallDistance(&updatedValue) << std::endl;
-
-        return 0;
     }
-    std::cout << "Smaller null pointer error" << std::endl;
+    KickDistance::kickSoccerBall(nullptr, nullptr);
+        
+    StartDistance ballStart1;
+    float updatedValue = 5.0f;
+    std::cout << "kickSoccerBall ballStart's multiplied values: " << KickDistance::kickSoccerBall(&ballStart1, &updatedValue) << std::endl;                  //11
+        
+    StartDistance ballStart2;
+    std::cout << "kickSoccerBall continuousDistance's multiplied values: " << ballStart2.decrementBallDistance(&updatedValue) << std::endl;
 
-    return -1;
+    return 0;
 }
