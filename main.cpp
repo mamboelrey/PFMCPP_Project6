@@ -71,7 +71,7 @@ struct SoccerBallSize                               //4
 {
     SoccerBall* compare(SoccerBall* a, SoccerBall* b) //5
     {
-        if(a != nullptr && b != nullptr)
+        if(a != nullptr || b != nullptr)
         {
             if(a->value < b->value) return a;
             if(a->value > b->value) return b;
@@ -103,7 +103,7 @@ struct KickDistance
 {
     static float kickSoccerBall(StartDistance* that, float* updatedValue)        //10
     {
-        if(updatedValue != nullptr && that != nullptr)
+        if(updatedValue != nullptr || that != nullptr)
         {
             std::cout << "StartDistance's danielBall value: " << that->danielBall << std::endl;
             that->danielBall = *updatedValue;
@@ -118,6 +118,7 @@ struct KickDistance
             std::cout << "StartDistance's anthonyBall updated value: " << that->anthonyBall << std::endl;
             return that->anthonyBall * that->danielBall;
         }
+        std::cout << "Nullpointer error" << std::endl;
         return 0.0f;
     }
 };
