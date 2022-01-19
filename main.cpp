@@ -71,8 +71,11 @@ struct SoccerBallSize                               //4
 {
     SoccerBall* compare(SoccerBall* a, SoccerBall* b) //5
     {
-        if( a->value < b->value && a != nullptr && b != nullptr ) return a;
-        if( a->value > b->value && a != nullptr && b != nullptr ) return b;
+        if(a != nullptr && b != nullptr)
+        {
+            if(a->value < b->value) return a;
+            if(a->value > b->value) return b;
+        }
         return nullptr;
     }
 };
@@ -100,22 +103,22 @@ struct KickDistance
 {
     static float kickSoccerBall(StartDistance* that, float* updatedValue)        //10
     {
-        if(updatedValue != nullptr)
+        if(updatedValue != nullptr && that != nullptr)
         {
             std::cout << "StartDistance's danielBall value: " << that->danielBall << std::endl;
-        }
-        if(that != nullptr)
             that->danielBall = *updatedValue;
-        std::cout << "StartDistance's danielBall updated value: " << that->danielBall << std::endl;
-        while( std::abs(that->anthonyBall - that->danielBall) > 0.001f )
-        {
+            std::cout << "StartDistance's danielBall updated value: " << that->danielBall << std::endl;
+            while( std::abs(that->anthonyBall - that->danielBall) > 0.001f )
+            {
             /*
              write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
              */
-            that->anthonyBall += .1f;
+                that->anthonyBall += .1f;
+            }
+            std::cout << "StartDistance's anthonyBall updated value: " << that->anthonyBall << std::endl;
+            return that->anthonyBall * that->danielBall;
         }
-        std::cout << "StartDistance's anthonyBall updated value: " << that->anthonyBall << std::endl;
-        return that->anthonyBall * that->danielBall;
+        return 0.0f;
     }
 };
         
