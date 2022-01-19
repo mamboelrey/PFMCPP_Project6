@@ -85,17 +85,21 @@ struct StartDistance
     float danielBall { 0.0f }, anthonyBall { 0.0f };
     float decrementBallDistance(float* updatedValue)      //12
     {
-        std::cout << "StartDistance's danielBall value: " << danielBall << std::endl;
         if(updatedValue != nullptr)
-            danielBall = *updatedValue;
-        std::cout << "StartDistance's danielBall updated value: " << danielBall << std::endl;
-        while(std::abs(anthonyBall - danielBall) > 0.001f)
         {
-            anthonyBall += .1f;
-        }
+            std::cout << "StartDistance's danielBall value: " << danielBall << std::endl;
+            danielBall = *updatedValue;
+            std::cout << "StartDistance's danielBall updated value: " << danielBall << std::endl;
+            while(std::abs(anthonyBall - danielBall) > 0.001f)
+            {
+                anthonyBall += .1f;
+            }
 
-        std::cout << "StartDistance's danielBall updated value: " << anthonyBall << std::endl;
-        return anthonyBall * danielBall;
+            std::cout << "StartDistance's danielBall updated value: " << anthonyBall << std::endl;
+            return anthonyBall * danielBall;
+        }
+        std::cout << "Null pointer error" << std::endl;
+        return 0.0f;
     }
 };
 
