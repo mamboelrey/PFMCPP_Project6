@@ -56,46 +56,69 @@ Purpose:  This project will show you the difference between member functions and
 #include <string>
 struct T
 {
-    T(<#type name#> v, const char* <#variable name#>)   //1
-    //2
+    T(float v, const char* brand): value(v), name(brand) {}
+    //1
+    //2 
+    float value;
     //3
+    std::string name;
 };
 
-struct <#structName1#>                                //4
+struct SoccerBallSize                               //4
 {
-    <#type name#> compare(<#type name#> a, <#type name#> b) //5
+    T* compare(T* a, T* b) //5
     {
-        if( a->value < b->value ) return a;
-        if( a->value > b->value ) return b;
+        if(a != nullptr && b != nullptr)
+        {
+            if(a->value < b->value) return a;
+            if(a->value > b->value) return b;
+        }
         return nullptr;
     }
 };
 
 struct U
 {
-    float <#name1#> { 0 }, <#name2#> { 0 };
-    <#returnType#> <#memberFunction#>(<#type name#>* <#updatedValue#>)      //12
+    float danielBall { 0.0f }, anthonyBall { 0.0f };
+    float decrementBallDistance(float* updatedValue)      //12
     {
-        
+            std::cout << "U's danielBall value: " << danielBall << std::endl;
+            if(updatedValue != nullptr)
+            {
+                danielBall = *updatedValue;
+            }
+            std::cout << "U's danielBall updated value: " << danielBall << std::endl;
+            while(std::abs(anthonyBall - danielBall) > 0.001f)
+            {
+                anthonyBall += .1f;
+            }
+
+            std::cout << "U's danielBall updated value: " << anthonyBall << std::endl;
+            return anthonyBall * danielBall;
     }
 };
 
-struct <#structname2#>
+struct KickDistance
 {
-    static <#returntype#> <#staticFunctionA#>(U* that, <#type name#>* <#updatedValue#> )        //10
+    static float kickSoccerBall(U* that, float* updatedValue)        //10
     {
-        std::cout << "U's <#name1#> value: " << that-><#name1#> << std::endl;
-        that-><#name1#> = <#updatedValue#>;
-        std::cout << "U's <#name1#> updated value: " << that-><#name1#> << std::endl;
-        while( std::abs(that-><#name2#> - that-><#name1#>) > 0.001f )
+        if(updatedValue != nullptr && that != nullptr)
         {
+            std::cout << "U's danielBall value: " << that->danielBall << std::endl;
+            that->danielBall = *updatedValue;
+            std::cout << "U's danielBall updated value: " << that->danielBall << std::endl;
+            while( std::abs(that->anthonyBall - that->danielBall) > 0.001f )
+            {
             /*
              write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
              */
-            that-><#name2#> += ;
+                that->anthonyBall += .1f;
+            }
+            std::cout << "U's anthonyBall updated value: " << that->anthonyBall << std::endl;
+            return that->anthonyBall * that->danielBall;
         }
-        std::cout << "U's <#name2#> updated value: " << that-><#name2#> << std::endl;
-        return that-><#name2#> * that-><#name1#>;
+        std::cout << "Kick Soccerball null pointer error" << std::endl;
+        return 0.0f;
     }
 };
         
@@ -113,19 +136,25 @@ struct <#structname2#>
  Wait for my code review.
  */
 
+
 int main()
 {
-    T <#name1#>( , );                                             //6
-    T <#name2#>( , );                                             //6
+    T ballOne( 4.4f, "Wilson");                                             //6
+    T ballTwo(5.5f, "Nike");                                             //6
     
-    <#structName1#> f;                                            //7
-    auto* smaller = f.compare( , );                              //8
-    std::cout << "the smaller one is << " << smaller->name << std::endl; //9
-    
-    U <#name3#>;
-    float updatedValue = 5.f;
-    std::cout << "[static func] <#name3#>'s multiplied values: " << <#structname2#>::<#staticFunctionA#>( , ) << std::endl;                  //11
-    
-    U <#name4#>;
-    std::cout << "[member func] <#name4#>'s multiplied values: " << <#name4#>.<#memberFunction#>( &updatedValue ) << std::endl;
+    SoccerBallSize f;                                            //7
+    auto* smaller = f.compare(&ballOne, &ballTwo); 
+    if(smaller != nullptr)
+    {
+        std::cout << "the smaller one is << " << smaller->name << std::endl; //9
+    }
+        
+    U ballStart1;
+    float updatedValue = 5.0f;
+    std::cout << "kickSoccerBall ballStart's multiplied values: " << KickDistance::kickSoccerBall(&ballStart1, &updatedValue) << std::endl;                  //11
+        
+    U ballStart2;
+    std::cout << "kickSoccerBall continuousDistance's multiplied values: " << ballStart2.decrementBallDistance(&updatedValue) << std::endl;
+
+    return 0;
 }
