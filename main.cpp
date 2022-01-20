@@ -54,9 +54,9 @@ Purpose:  This project will show you the difference between member functions and
 
 #include <iostream>
 #include <string>
-struct SoccerBall
+struct T
 {
-    SoccerBall(float v, const char* brand): value(v), name(brand) {}
+    T(float v, const char* brand): value(v), name(brand) {}
     //1
     //2 
     float value;
@@ -66,7 +66,7 @@ struct SoccerBall
 
 struct SoccerBallSize                               //4
 {
-    SoccerBall* compare(SoccerBall* a, SoccerBall* b) //5
+    T* compare(T* a, T* b) //5
     {
         if(a != nullptr && b != nullptr)
         {
@@ -77,38 +77,36 @@ struct SoccerBallSize                               //4
     }
 };
 
-struct StartDistance
+struct U
 {
     float danielBall { 0.0f }, anthonyBall { 0.0f };
     float decrementBallDistance(float* updatedValue)      //12
     {
-        if(updatedValue != nullptr)
-        {
-            std::cout << "StartDistance's danielBall value: " << danielBall << std::endl;
-            danielBall = *updatedValue;
-            std::cout << "StartDistance's danielBall updated value: " << danielBall << std::endl;
+            std::cout << "U's danielBall value: " << danielBall << std::endl;
+            if(updatedValue != nullptr)
+            {
+                danielBall = *updatedValue;
+            }
+            std::cout << "U's danielBall updated value: " << danielBall << std::endl;
             while(std::abs(anthonyBall - danielBall) > 0.001f)
             {
                 anthonyBall += .1f;
             }
 
-            std::cout << "StartDistance's danielBall updated value: " << anthonyBall << std::endl;
+            std::cout << "U's danielBall updated value: " << anthonyBall << std::endl;
             return anthonyBall * danielBall;
-        }
-        std::cout << "DecrementBallDistance null pointer error" << std::endl;
-        return 0.0f;
     }
 };
 
 struct KickDistance
 {
-    static float kickSoccerBall(StartDistance* that, float* updatedValue)        //10
+    static float kickSoccerBall(U* that, float* updatedValue)        //10
     {
         if(updatedValue != nullptr && that != nullptr)
         {
-            std::cout << "StartDistance's danielBall value: " << that->danielBall << std::endl;
+            std::cout << "U's danielBall value: " << that->danielBall << std::endl;
             that->danielBall = *updatedValue;
-            std::cout << "StartDistance's danielBall updated value: " << that->danielBall << std::endl;
+            std::cout << "U's danielBall updated value: " << that->danielBall << std::endl;
             while( std::abs(that->anthonyBall - that->danielBall) > 0.001f )
             {
             /*
@@ -116,7 +114,7 @@ struct KickDistance
              */
                 that->anthonyBall += .1f;
             }
-            std::cout << "StartDistance's anthonyBall updated value: " << that->anthonyBall << std::endl;
+            std::cout << "U's anthonyBall updated value: " << that->anthonyBall << std::endl;
             return that->anthonyBall * that->danielBall;
         }
         std::cout << "Kick Soccerball null pointer error" << std::endl;
@@ -141,23 +139,23 @@ struct KickDistance
 
 int main()
 {
-    SoccerBall ballOne( 4.4f, "Wilson");                                             //6
-    SoccerBall ballTwo(5.5f, "Nike");                                             //6
+    T ballOne( 4.4f, "Wilson");                                             //6
+    T ballTwo(5.5f, "Nike");                                             //6
     
     SoccerBallSize f;                                            //7
     auto* smaller = f.compare(&ballOne, &ballTwo);                              //8
-    //smaller = f.compare(nullptr, nullptr);
+    smaller = f.compare(nullptr, nullptr);
     if(smaller != nullptr)
     {
         std::cout << "the smaller one is << " << smaller->name << std::endl; //9
     }
     KickDistance::kickSoccerBall(nullptr, nullptr);
         
-    StartDistance ballStart1;
+    U ballStart1;
     float updatedValue = 5.0f;
     std::cout << "kickSoccerBall ballStart's multiplied values: " << KickDistance::kickSoccerBall(&ballStart1, &updatedValue) << std::endl;                  //11
         
-    StartDistance ballStart2;
+    U ballStart2;
     std::cout << "kickSoccerBall continuousDistance's multiplied values: " << ballStart2.decrementBallDistance(&updatedValue) << std::endl;
 
     return 0;
