@@ -143,13 +143,11 @@ int main()
     T ballTwo(5.5f, "Nike");                                             //6
     
     SoccerBallSize f;                                            //7
-    auto* smaller = f.compare(&ballOne, &ballTwo);                              //8
-    smaller = f.compare(nullptr, nullptr);
+    auto* smaller = f.compare(&ballOne, &ballTwo); 
     if(smaller != nullptr)
     {
         std::cout << "the smaller one is << " << smaller->name << std::endl; //9
     }
-    KickDistance::kickSoccerBall(nullptr, nullptr);
         
     U ballStart1;
     float updatedValue = 5.0f;
