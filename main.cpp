@@ -53,13 +53,10 @@ struct SoccerBallSize                               //4
 struct U
 {
     float danielBall { 0.0f }, anthonyBall { 0.0f };
-    float decrementBallDistance(float* updatedValue)      //12
+    float decrementBallDistance(const float& updatedValue)      //12
     {
             std::cout << "U's danielBall value: " << danielBall << std::endl;
-            if(updatedValue != nullptr)
-            {
-                danielBall = *updatedValue;
-            }
+            danielBall = updatedValue;
             std::cout << "U's danielBall updated value: " << danielBall << std::endl;
             while(std::abs(anthonyBall - danielBall) > 0.001f)
             {
@@ -73,25 +70,20 @@ struct U
 
 struct KickDistance
 {
-    static float kickSoccerBall(U* that, float* updatedValue)        //10
+    static float kickSoccerBall(U& that, const float& updatedValue)        //10
     {
-        if(updatedValue != nullptr && that != nullptr)
+        std::cout << "U's danielBall value: " << that.danielBall << std::endl;
+        that.danielBall = updatedValue;
+        std::cout << "U's danielBall updated value: " << that.danielBall << std::endl;
+        while( std::abs(that.anthonyBall - that.danielBall) > 0.001f)
         {
-            std::cout << "U's danielBall value: " << that->danielBall << std::endl;
-            that->danielBall = *updatedValue;
-            std::cout << "U's danielBall updated value: " << that->danielBall << std::endl;
-            while( std::abs(that->anthonyBall - that->danielBall) > 0.001f )
-            {
             /*
              write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
              */
-                that->anthonyBall += .1f;
-            }
-            std::cout << "U's anthonyBall updated value: " << that->anthonyBall << std::endl;
-            return that->anthonyBall * that->danielBall;
+                that.anthonyBall += .1f;
         }
-        std::cout << "Kick Soccerball null pointer error" << std::endl;
-        return 0.0f;
+        std::cout << "U's anthonyBall updated value: " << that.anthonyBall << std::endl;
+        return that.anthonyBall * that.danielBall;
     }
 };
         
@@ -121,13 +113,17 @@ int main()
     {
         std::cout << "the smaller one is << " << smaller->name << std::endl; //9
     }
+    else
+    {
+        std::cout << "ballOne or ballTwo set to nullptr " << std::endl;
+    }
         
     U ballStart1;
     float updatedValue = 5.0f;
-    std::cout << "kickSoccerBall ballStart's multiplied values: " << KickDistance::kickSoccerBall(&ballStart1, &updatedValue) << std::endl;                  //11
+    std::cout << "kickSoccerBall ballStart's multiplied values: " << KickDistance::kickSoccerBall(ballStart1, updatedValue) << std::endl;                  //11
         
     U ballStart2;
-    std::cout << "kickSoccerBall continuousDistance's multiplied values: " << ballStart2.decrementBallDistance(&updatedValue) << std::endl;
+    std::cout << "kickSoccerBall continuousDistance's multiplied values: " << ballStart2.decrementBallDistance(updatedValue) << std::endl;
 
     return 0;
 }
