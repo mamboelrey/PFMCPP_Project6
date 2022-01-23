@@ -113,7 +113,7 @@ int main()
     }
     else
     {
-        std::cout << "Both structures passed in T have member variable values that are equal " << std::endl;
+        std::cout << "The structures T passed in compare() have member variable 'value' that is equal " << std::endl;
     }
         
     U ballStart1;
