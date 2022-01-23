@@ -39,13 +39,11 @@ struct T
 
 struct SoccerBallSize                               //4
 {
-    T* compare(T* a, T* b) //5
+    T* compare(T& a, T& b) //5
     {
-        if(a != nullptr && b != nullptr)
-        {
-            if(a->value < b->value) return a;
-            if(a->value > b->value) return b;
-        }
+        if(a.value < b.value) return &a;
+        if(a.value > b.value) return &b;
+
         return nullptr;
     }
 };
@@ -108,14 +106,14 @@ int main()
     T ballTwo(5.5f, "Nike");                                             //6
     
     SoccerBallSize f;                                            //7
-    auto* smaller = f.compare(&ballOne, &ballTwo); 
+    auto* smaller = f.compare(ballOne, ballTwo); 
     if(smaller != nullptr)
     {
         std::cout << "the smaller one is << " << smaller->name << std::endl; //9
     }
     else
     {
-        std::cout << "ballOne or ballTwo set to nullptr " << std::endl;
+        std::cout << "ballOne.value equals ballTwo.value " << std::endl;
     }
         
     U ballStart1;
