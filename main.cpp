@@ -113,7 +113,7 @@ int main()
     }
     else
     {
-        std::cout << "ballOne.value equals ballTwo.value " << std::endl;
+        std::cout << "Both structures passed in T have member variable values that are equal " << std::endl;
     }
         
     U ballStart1;
